@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Generated Prisma client
+server/src/generated/prisma/
+
+# Testing
+coverage/
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+
+# Database files and backups
+*.sqlite
+*.db
+*.dump
+*.bak
