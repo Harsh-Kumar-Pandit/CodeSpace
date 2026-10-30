@@ -112,3 +112,44 @@ export async function deleteProjectFile(userId, projectId, fileId) {
 
   return true;
 }
+
+export async function renameProjectFile(
+  userId,
+  projectId,
+  fileId,
+  newName
+) {
+  const node = await prisma.projectFile.findFirst({
+    where: {
+      id: fileId,
+      projectId,
+      project: { ownerId: userId },
+    },
+  });
+
+  if (!node) {
+    return null;
+  }
+
+  const duplicate = await prisma.projectFile.findFirst({
+    where: {
+      projectId,
+      parentId: node.parentId,
+      name: newName,
+      NOT: { id: fileId },
+    },
+  });
+
+  if (duplicate) {
+    const error = new Error(
+      "A file or folder with this name already exists"
+    );
+    error.statusCode = 409;
+    throw error;
+  }
+
+  return prisma.projectFile.update({
+    where: { id: fileId },
+    data: { name: newName },
+  });
+}

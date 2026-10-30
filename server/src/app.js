@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import projectRoutes from "./routes/project.routes.js";
 import fileRoutes from "./routes/file.routes.js";
+import templateRoutes from "./routes/template.routes.js";
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/projects/:projectId/files", fileRoutes);
+app.use("/api/templates", templateRoutes);
+
 
 app.get("/health", (req, res) => {
   res.status(200).json({
